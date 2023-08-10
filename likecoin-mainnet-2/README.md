@@ -1,15 +1,15 @@
-### This guide contains step-by-step instructions on how to install and synchronize your own node in the likecoin-mainnet-2 network
+### This guide contains step-by-step instructions on how to install and synchronize your own node for the likecoin-mainnet-2 chain
 #### Node installation
-##### Update necessary packages:
+##### Update necessary packages
 ```bash
 sudo apt update
 sudo apt upgrade --yes
 ```
-##### Install git, curl, jq and make:
+##### Install git, curl, jq and make
 ```bash
 sudo apt install jq git curl make --yes
 ```
-##### Install Go:
+##### Install Go
 ```bash
 sudo snap install go --classic && \
 echo 'export GOPATH="$HOME/go"' >> ~/.profile && \
@@ -18,20 +18,20 @@ echo 'export PATH="$GOBIN:$PATH"' >> ~/.profile && \
 source ~/.profile && \
 go version
 ```
-##### Clone LikeCoin repository and install binary:
+##### Clone LikeCoin repository and install binary
 ```bash
 git clone https://github.com/likecoin/likecoin-chain
 cd likecoin-chain
 git checkout v$(curl -s http://207.180.238.137:26657/abci_info | jq -r .result[].version)
 make install
 ```
-##### Download genesis and init your node:
+##### Download genesis and init your node
 ```bash
 liked init <moniker> --chain-id likecoin-mainnet-2
 liked keys add <keyname>
 wget https://raw.githubusercontent.com/likecoin/mainnet/master/genesis.json -O /root/.liked/config/genesis.json
 ```
-##### Setup liked service:
+##### Setup liked service
 ```bash
 sudo tee /etc/systemd/system/liked.service > /dev/null <<EOF
 [Unit]
@@ -49,7 +49,7 @@ LimitNOFILE=100000
 WantedBy=multi-user.target
 EOF
 ```
-##### Reload and enable your daemon:
+##### Reload and enable your daemon
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable likied
@@ -78,7 +78,7 @@ sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ;
 \s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; 
 \s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.liked/config/config.toml
 ```
-##### Restart your node and wath logs
+##### Restart your node and watch logs
 ```
 sudo systemctl restart liked
 journalctl -u liked -f -o cat
