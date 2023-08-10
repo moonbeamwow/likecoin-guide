@@ -103,3 +103,8 @@ curl -s localhost:26657/status
 --gas-prices 1nanolike
 ```
 Track your node on this page: https://likecoin.bigdipper.live/validators.
+
+### RPC/API/State sync services:
+RPC endpoint: http://207.180.238.137:26657
+API endpiont: http://207.180.238.137:1317
+gRPC/web endpoints: http://207.180.238.137:9090 / http://207.180.238.137:9091
