@@ -40,7 +40,7 @@ cd ~/likecoin-chain
 make -C deploy initialize-systemctl
 make -C deploy start-node
 ```
-
+___
 #### Useful commands
 ##### Stop liked service
 ```bash
